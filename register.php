@@ -29,21 +29,32 @@ if(isset($_POST['register_button'])) {
   $lname = ucfirst(strtolower($lname)); //Uppercase first letter
 
   //Email
-  $em = strip_tags($_POST['em']); //Remove html tags
+  $em = strip_tags($_POST['reg_email']); //Remove html tags
   $em = str_replace(' ', '', $em); //Remove spaces
   $em = ucfirst(strtolower($em)); //Uppercase first letter
 
   //Email2
-  $em2 = strip_tags($_POST['em2']); //Remove html tags
+  $em2 = strip_tags($_POST['reg_email2']); //Remove html tags
   $em2 = str_replace(' ', '', $em2); //Remove spaces
   $em2 = ucfirst(strtolower($em2)); //Uppercase first letter
 
   //Password
-  $password = strip_tags($_POST['password']); //Remove html tags
-  $password2 = strip_tags($_POST['password2']); //Remove html tags
+  $password = strip_tags($_POST['reg_password']); //Remove html tags
+  $password2 = strip_tags($_POST['reg_password2']); //Remove html tags
 
   //Date
   $date = date("Y-m-d");
+
+  if($em == $em2) {
+    //Check if email is in valid format
+    if(filter_var($em, FILTER_VALIDATE_EMAIL)) {
+      $em = filter_var($em, FILTER_VALIDATE_EMAIL);
+    } else {
+      echo "Invalid format";
+    }
+  } else {
+    echo "Emails don't match";
+  }
 }
 
 ?>
@@ -62,7 +73,7 @@ if(isset($_POST['register_button'])) {
     <br />
     <input type="email" name="reg_email" placeholder="Email" required>
     <br />
-    <input type="email" name="reg_lname2" placeholder="Confirm Email" required>
+    <input type="email" name="reg_email2" placeholder="Confirm Email" required>
     <br />
     <input type="password" name="reg_password" placeholder="Password" required>
     <br />
@@ -70,6 +81,5 @@ if(isset($_POST['register_button'])) {
     <br />
     <input type="submit" name="register_button" value="Register">
   </form>
-  
 </body>
 </html>
