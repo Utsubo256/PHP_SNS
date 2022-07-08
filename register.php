@@ -34,13 +34,13 @@ if(isset($_POST['register_button'])) {
   //Email
   $em = strip_tags($_POST['reg_email']); //Remove html tags
   $em = str_replace(' ', '', $em); //Remove spaces
-  $em = ucfirst(strtolower($em)); //Uppercase first letter
+  $em = strtolower($em);
   $_SESSION['reg_email'] = $em;
 
   //Email2
   $em2 = strip_tags($_POST['reg_email2']); //Remove html tags
   $em2 = str_replace(' ', '', $em2); //Remove spaces
-  $em2 = ucfirst(strtolower($em2)); //Uppercase first letter
+  $em2 = strtolower($em2);
   $_SESSION['reg_email2'] = $em2;
 
   //Password
@@ -112,6 +112,8 @@ if(isset($_POST['register_button'])) {
       $profile_pic = "assets/images/profile_pics/defaults/head_deep_blue.png";
     else if($rand == 2)
       $profile_pic = "assets/images/profile_pics/defaults/head_emerald.png";
+
+    $query = mysqli_query($con, "INSERT INTO users VALUES (NULL, '$fname', '$lname', '$username', '$em', '$password', '$date', '$profile_pic', '0', '0', 'no', ',')");
   }
 }
 
