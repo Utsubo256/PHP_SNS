@@ -12,5 +12,22 @@ if(isset($_SESSION['username'])) {
 <html>
 <head>
   <title>Welcome to Swirlfeed</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.js"></script>
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
 </head>
 <body>
+
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    Action <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul>
+</div>
