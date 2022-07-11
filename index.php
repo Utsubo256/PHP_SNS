@@ -81,8 +81,11 @@ $(document).ready(function() {
         }
       });
 
-    }
-  });
+    } //End if
+    
+    return false;
+
+  }); //End (window).scroll(function())
 
 });
 </script>
