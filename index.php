@@ -34,7 +34,7 @@ if(isset($_POST['post'])) {
   </form>
 
   <div class="posts_area"></div>
-  <img id="#loading" src="assets/images/icons/loading.gif">
+  <img id="loading" src="assets/images/icons/loading.gif">
 
 </div>
 
@@ -58,21 +58,21 @@ $(document).ready(function() {
   });
   $(window).scroll(function() {
     var height = $('.posts_area').height(); //div containing posts
-    var scroll_top = $(this).scrolTop();
+    var scroll_top = $(this).scrollTop();
     var page = $('.posts_area').find('.nextPage').val();
-    var noMorePosts = $('posts_area').find('.noMorePosts').val();
+    var noMorePosts = $('.posts_area').find('.noMorePosts').val();
 
     if((document.body.scrollHeight == document.body.scrollTop + window.innerHeight) && noMorePosts == 'false') {
       $('#loading').show();
 
-        //Original ajax request for loading first posts
+      //Original ajax request for loading first posts
       $.ajax({
         url: "includes/handlers/ajax_load_posts.php",
         type: "POST",
         data: "page=" + page + "&userLoggedIn=" + userLoggedIn,
         cache: false,
 
-        success: function(data) {
+        success: function(response) {
           $('.posts_area').find('.nextPage').remove(); //Removes current .nextPage
           $('.posts_area').find('.noMorePosts').remove(); //Removes current .noMorePosts
 
