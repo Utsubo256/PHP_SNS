@@ -33,31 +33,58 @@ if(isset($_POST['post'])) {
     <hr>
   </form>
 
-  <?php
-
-  $post = new Post($con, $userLoggedIn);
-  $post->loadPostsFriends();
-
-  ?>
-
-  <img src="assets/imgages/icons/loading.gif">
+  <div class="posts_area"></div>
+  <img id="#loading" src="assets/images/icons/loading.gif">
 
 </div>
 
 <script>
-  var userLoggedIn = '<?php echo $userLoggedIn; ?>';
+var userLoggedIn = '<?php echo $userLoggedIn; ?>';
 
-  $(document).ready(function() {
-    $('#loading').show();
+$(document).ready(function() {
+  $('#loading').show();
 
-    //Original ajax request for loading first posts
-    $.ajax{
-      url: "includes/handlers/ajax_load_posts.php",
-      type: "POST",
-      data: "page=1&userLoggedIn=" + userLoggedIn,
-      cache: false,
+  //Original ajax request for loading first posts
+  $.ajax({
+    url: "includes/handlers/ajax_load_posts.php",
+    type: "POST",
+    data: "page=1&userLoggedIn=" + userLoggedIn,
+    cache: false,
+
+    success: function(data) {
+      $('#loading').hide();
+      $('.posts_area').html(data);
     }
   });
+  $(window).scroll(function() {
+    var height = $('.posts_area').height(); //div containing posts
+    var scroll_top = $(this).scrolTop();
+    var page = $('.posts_area').find('.nextPage').val();
+    var noMorePosts = $('posts_area').find('.noMorePosts').val();
+
+    if((document.body.scrollHeight == document.body.scrollTop + window.innerHeight) && noMorePosts == 'false') {
+      $('#loading').show();
+
+        //Original ajax request for loading first posts
+      $.ajax({
+        url: "includes/handlers/ajax_load_posts.php",
+        type: "POST",
+        data: "page=" + page + "&userLoggedIn=" + userLoggedIn,
+        cache: false,
+
+        success: function(data) {
+          $('.posts_area').find('.nextPage').remove(); //Removes current .nextPage
+          $('.posts_area').find('.noMorePosts').remove(); //Removes current .noMorePosts
+
+          $('#loading').hide();
+          $('.posts_area').append(response);
+        }
+      });
+
+    }
+  });
+
+});
 </script>
 
 </div>
