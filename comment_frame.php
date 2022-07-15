@@ -142,6 +142,8 @@ if(isset($_SESSION['username'])) {
   <?php
 
     }
+  } else {
+    echo "<center><br />No Comments to Show!</center>";
   }
   ?>
 
