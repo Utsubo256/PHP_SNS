@@ -103,6 +103,23 @@ class Post {
           $first_name = $user_row['first_name'];
           $last_name = $user_row['last_name'];
           $profile_pic = $user_row['profile_pic'];
+
+          ?>
+
+          <script>
+            function toggle<?php echo $id; ?>() {
+
+              var element = document.getElementById("toggleComment<?php echo $id; ?>");
+
+              if(element.style.display == "block") {
+                element.style.display = "none"
+              } else {
+                element.style.display = "block";
+              }
+            }
+          </script>
+
+          <?php
     
           //Timeframe
           $date_time_now = date("Y-m-d H:i:s");
@@ -110,7 +127,7 @@ class Post {
           $end_date = new DateTime($date_time_now); //Current time
           $interval = $start_date->diff($end_date); //Difference between dates
           if($interval->y >= 1) {
-            if($interval == 1) {
+            if($interval->y == 1) {
               $time_message = $interval->y . " year ago"; //1 year ago
             } else {
               $time_message = $interval->y . " years ago"; //1+ year ago
@@ -130,7 +147,7 @@ class Post {
               $time_message = $interval->m . " months" . $days;
             }
           } else if($interval->d >= 1) {
-            if($interval->d = 1) {
+            if($interval->d == 1) {
               $time_message = "Yesterday";
             } else {
               $time_message = $interval->d . " days ago";
@@ -155,7 +172,7 @@ class Post {
             }
           }
     
-          $str .= "<div class='status_post'>
+          $str .= "<div class='status_post' onClick='javascript:toggle$id()'>
     
                     <div class='post_profile_pic'>
                       <img src='$profile_pic' width='50'>
@@ -170,6 +187,10 @@ class Post {
                       <br />
                     </div>
     
+                  </div>
+
+                  <div class='post_comment' id='toggleComment$id' style='display: none;'>
+                    <iframe src='comment_frame.php?post_id=$id' id='comment_iframe' frameborder='0'></iframe>
                   </div>
                   <hr>";
         }

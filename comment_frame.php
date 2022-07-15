@@ -23,7 +23,7 @@
     function toggle() {
       var element = document.getElementById("comment_section");
 
-      if(elemen.style.display == "block") {
+      if(element.style.display == "block") {
         element.style.display = "none"
       } else {
         element.style.display = "block";
@@ -57,8 +57,8 @@
     <input type="submit" name="postComment<?php echo $post_id; ?>" value="Post">
   </form>
 
-  <!-- load comments -->
-  
+  <!-- Load comments -->
+
   
 </body>
 </html>
